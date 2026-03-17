@@ -35,4 +35,8 @@
 # C and other binaries
 **/*.exe
 
+# IDE
+.idea/
+out/
+
 desktop.ini

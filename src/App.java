@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.Scanner;
 
 /** 
  * MIT License
@@ -26,9 +27,9 @@ import java.util.Random;
  */
 
 public class App {
-    static final int[] tamanhosTesteGrande =  { 31_250_000, 62_500_000, 125_000_000, 250_000_000, 500_000_000 };
-    static final int[] tamanhosTesteMedio =   {     12_500,     25_000,      50_000,     100_000,     200_000 };
-    static final int[] tamanhosTestePequeno = {          3,          6,          12,          24,          48 };
+    static final int[] tamanhosTesteGrande = { 31_250_000, 62_500_000, 125_000_000, 250_000_000, 500_000_000 };
+    static final int[] tamanhosTesteMedio = { 12_500, 25_000, 50_000, 100_000, 200_000 };
+    static final int[] tamanhosTestePequeno = { 3, 6, 12, 24, 48 };
     static Random aleatorio = new Random(42);
     static long operacoes;
     static double nanoToMilli = 1.0/1_000_000;
@@ -104,7 +105,73 @@ public class App {
         return vetor;
         
     }
+
     public static void main(String[] args) {
-        
+
+        System.out.println("===== ALGORITMO 1 =====");
+        for (int tamanho : tamanhosTesteGrande) {
+
+            int[] vetor = gerarVetor(tamanho);
+
+            operacoes = 0;
+            long inicio = System.nanoTime();
+            int r = codigo1(vetor);
+            long fim = System.nanoTime();
+
+            double tempo = (fim - inicio) * nanoToMilli;
+
+            System.out.printf("n=%d | resultado=%d | tempo=%.3f ms\n",
+                    tamanho, r, tempo);
+        }
+
+
+        System.out.println("\n===== ALGORITMO 2 =====");
+        for (int tamanho : tamanhosTesteGrande) {
+
+            int[] vetor = gerarVetor(tamanho);
+
+            operacoes = 0;
+            long inicio = System.nanoTime();
+            int r = codigo2(vetor);
+            long fim = System.nanoTime();
+
+            double tempo = (fim - inicio) * nanoToMilli;
+
+            System.out.printf("n=%d | resultado=%d | tempo=%.3f ms\n",
+                    tamanho, r, tempo);
+        }
+
+
+        System.out.println("\n===== ALGORITMO 3 =====");
+        for (int tamanho : tamanhosTesteMedio) {
+
+            int[] vetor = gerarVetor(tamanho);
+
+            operacoes = 0;
+            long inicio = System.nanoTime();
+            codigo3(vetor);
+            long fim = System.nanoTime();
+
+            double tempo = (fim - inicio) * nanoToMilli;
+
+            System.out.printf("n=%d | tempo=%.3f ms\n",
+                    tamanho, tempo);
+        }
+
+
+        System.out.println("\n===== ALGORITMO 4 =====");
+        for (int n : tamanhosTestePequeno) {
+
+            operacoes = 0;
+            long inicio = System.nanoTime();
+            int r = codigo4(n);
+            long fim = System.nanoTime();
+
+            double tempo = (fim - inicio) * nanoToMilli;
+
+            System.out.printf("n=%d | resultado=%d | tempo=%.3f ms\n",
+                    n, r, tempo);
+        }
+
     }
 }
